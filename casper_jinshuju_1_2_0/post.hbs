@@ -1,0 +1,71 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! Everything inside the #post tags pulls data from the post }}
+{{#post}}
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
+        {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
+        {{#if @blog.navigation}}
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        {{/if}}
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="{{post_class}}">
+
+        <header class="post-header">
+            <h1 class="post-title">{{title}}</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time> {{tags prefix=" 分类："}}
+            </section>
+        </header>
+
+        <section class="post-content">
+            {{content}}
+        </section>
+
+        <footer class="post-footer">
+
+            <section class="share">
+            <span>分享至：</span>
+            <a id="weixin-share" title="分享到微信"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+            <div id="share-qrcode" style="display:none;">
+            <div id="qrcode-content"></div>
+            </div>
+
+            <a title="分享到微博" rel="external nofollow" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1843447738',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','我分享了金数据博客的文章「{{title}}」','','utf-8'));" class="__web-inspector-hide-shortcut__"><i class="fa fa-fw fa-lg fa-weibo"></i></a>
+
+            <a title="分享到Twitter" rel="external nofollow" href="http://twitter.com/share?text={{encode "我分享了金数据博客的文章「"}}{{encode title}}{{encode "」"}}&amp;url={{url absolute='true'}}" data-action="share-twitter"><i class="fa fa-fw fa-lg fa-twitter"></i></a>
+
+            </section>
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    {{#next_post}}
+    <a class="read-next-story {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
+        <section class="post">
+            <h2>{{title}}</h2>
+            <p>{{excerpt words="19"}}&hellip;</p>
+        </section>
+    </a>
+    {{/next_post}}
+    {{#prev_post}}
+    <a class="read-next-story prev {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
+        <section class="post">
+            <h2>{{title}}</h2>
+            <p>{{excerpt words="19"}}&hellip;</p>
+        </section>
+    </a>
+    {{/prev_post}}
+</aside>
+
+{{/post}}
